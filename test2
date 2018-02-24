@@ -1,0 +1,125 @@
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class TposIdentificacionDAO  extends BaseDAO {
+
+	/**Sentencia para obtener todo el catalogo de Estados	 */
+	private static String GET_TPOSIDENTIFICACION = "Select * from tposidentificacion";
+
+	/**Sentencia para Estado del catalogo de Estados por nombre corto */
+	private static String GET_TPOSIDENTIFICACION_BY_NOMBRECORTO = "Select * from tposidentificacion where nombreCorto=?";
+
+	private static String GET_TPOSIDENTIFICACION_BY_DESCRIPCION = "Select * from tposidentificacion where descripcion=?";
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_TPOSIDENTIFICACION);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByNombreCorto(String nombreCorto)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_TPOSIDENTIFICACION_BY_NOMBRECORTO);
+		pstmt.setString(1,nombreCorto);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+			/**
+	 * @param args
+	 */
+	private void findByDescripci�n(String descripcion)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_TPOSIDENTIFICACION_BY_DESCRIPCION);
+		pstmt.setString(1,descripcion);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+
+
+	/*public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findAll();
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+*/
+	/*public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findByDescripci�n("Licencia de Conducir");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}*/
+
+	public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findByNombreCorto("IFE");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+
+}
