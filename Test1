@@ -1,0 +1,712 @@
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+ public class SucursalDAO extends BaseDAO {
+
+		/**Sentencia para obtener todo el catalogo de Estados	 */
+		private static String GET_SUCURSAL = "Select * from Sucursal";
+
+		/**Sentencia para Estado del catalogo de Estados por nombre corto */
+		private static String GET_SUCURSAL_BY_NUMSUCURSAL = "Select * from Sucursal where numSucursal=?";
+
+		private static String GET_SUCURSAL_BY_DESCRIPCION = "Select * from Sucrusals where descripcion=?";
+		/**
+		 * Crea la conexion a la base de datos
+		 * @return <code>Connection</code> con la conexion a AEBA
+		 * @author Als
+		 */
+
+
+		private void findAll()throws SQLException{
+			Statement stmt = null;
+			ResultSet rs = null;
+			try{
+			stmt = super.getConnection().createStatement();
+			rs = stmt.executeQuery(GET_SUCURSAL);
+			while(rs.next()){
+				System.out.println(rs.getString(1));
+				System.out.println(rs.getString(2));
+				System.out.println(rs.getString(3));
+			}
+			}
+			catch (SQLException sqle){
+				sqle.printStackTrace();
+			}finally{
+				closeResultSet(rs);
+				closeStatement(stmt);
+				closeConnection();
+		}
+		}
+
+		private void findBySucursal(String numSucursal)throws SQLException{
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try{
+			pstmt = super.getConnection().prepareStatement(GET_SUCURSAL_BY_NUMSUCURSAL);
+			pstmt.setString(1,numSucursal);
+			rs= pstmt.executeQuery();
+			while(rs.next()){
+				System.out.println(rs.getString(1));
+				System.out.println(rs.getString(2));
+				System.out.println(rs.getString(3));
+			}
+			}
+			catch (SQLException sqle){
+				sqle.printStackTrace();
+			}finally{
+				if(pstmt != null){
+					pstmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			}
+		}
+				/**
+		 * @param args
+		 */
+
+		/*public static void main(String args[]){
+			ClienteDAO suc = new ClienteDAO();
+			try{
+				suc.findAll();
+			}catch (SQLException sqle){
+				sqle.printStackTrace();
+			}
+		*/
+
+		public static void main(String args[]){
+			SucursalDAO suc = new SucursalDAO();
+			try{
+				suc.findBySucursal("035mx");
+			}catch (SQLException sqle){
+				sqle.printStackTrace();
+			}
+		}
+
+ }
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class TposIdentificacionDAO  extends BaseDAO {
+
+	/**Sentencia para obtener todo el catalogo de Estados	 */
+	private static String GET_TPOSIDENTIFICACION = "Select * from tposidentificacion";
+
+	/**Sentencia para Estado del catalogo de Estados por nombre corto */
+	private static String GET_TPOSIDENTIFICACION_BY_NOMBRECORTO = "Select * from tposidentificacion where nombreCorto=?";
+
+	private static String GET_TPOSIDENTIFICACION_BY_DESCRIPCION = "Select * from tposidentificacion where descripcion=?";
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_TPOSIDENTIFICACION);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByNombreCorto(String nombreCorto)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_TPOSIDENTIFICACION_BY_NOMBRECORTO);
+		pstmt.setString(1,nombreCorto);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+			/**
+	 * @param args
+	 */
+	private void findByDescripci�n(String descripcion)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_TPOSIDENTIFICACION_BY_DESCRIPCION);
+		pstmt.setString(1,descripcion);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+
+
+	/*public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findAll();
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+*/
+	/*public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findByDescripci�n("Licencia de Conducir");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}*/
+
+	public static void main(String args[]){
+		TposIdentificacionDAO id = new TposIdentificacionDAO();
+		try{
+			id.findByNombreCorto("IFE");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+
+}
+/**
+ *
+ */
+package com.mx.aeba.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * @author Alumno_2
+ *
+ */
+public class BaseDAO {
+	private Connection cn = null;
+
+	public Connection getConnection(){
+		try{
+		Class.forName("com.mysql.jdbc.Driver");
+		this.cn=	DriverManager.getConnection(
+				"jdbc:MYSQL://localhost:3306/AEBA","root","");
+		}catch(ClassNotFoundException cnfe){
+			cnfe.printStackTrace();
+		} catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+		return cn;
+		}
+
+	public void closeStatement(Statement stmt) throws SQLException{
+		if(stmt !=null)
+			stmt.close();
+	}
+
+
+	public void closePreparedStatement(PreparedStatement pstmt)throws SQLException{
+		if(pstmt !=null)
+			pstmt.close();
+
+	}
+	public void closeConnection()throws SQLException{
+		if(cn !=null)
+			cn.close();
+	}
+
+	public void closeResultSet(ResultSet rs)throws SQLException{
+		if(rs !=null)
+			rs.close();
+	}
+}
+
+/**
+ * version 1.0 autor alss 13/06/11
+ */
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * DAO del catalogo Estados.
+ *
+ */
+public class EstadosDAO extends BaseDAO {
+
+	/**Sentencia para obtener todo el catalogo de Estados	 */
+	private static String GET_ESTADOS = "Select * from Estados";
+
+	/**Sentencia para Estado del catalogo de Estados por nombre corto */
+	private static String GET_ESTADOS_BY_SHORTNAME = "Select * from Estados where nombreCorto=?";
+
+
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_ESTADOS);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByShortName(String shortName)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_ESTADOS_BY_SHORTNAME);
+		pstmt.setString(1,shortName);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		EstadosDAO dao = new EstadosDAO();
+		try{
+		dao.findByShortName("Ags");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+}
+
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class EstatusDAO extends BaseDAO {
+
+	/**Sentencia para obtener todo el catalogo de Estados	 */
+	private static String GET_ESTATUS = "Select * from estatus";
+
+	/**Sentencia para Estado del catalogo de Estados por nombre corto */
+	private static String GET_ESTATUS_BY_NOMBRECORTO = "Select * from estatus where nombreCorto=?";
+
+	private static String GET_ESTATUS_BY_DESCRIPCION = "Select * from estatus where descripcion=?";
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_ESTATUS);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByNombreCorto(String nombreCorto)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_ESTATUS_BY_NOMBRECORTO);
+		pstmt.setString(1,nombreCorto);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+			/**
+	 * @param args
+	 */
+	private void findByDescripci�n(String descripcion)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_ESTATUS_BY_DESCRIPCION);
+		pstmt.setString(1,descripcion);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+
+
+	public static void main(String args[]){
+		EstatusDAO estatus = new EstatusDAO();
+		try{
+			estatus.findByDescripci�n("Bloqueado");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+
+	/*public static void main(String args[]){
+		EstatusDAO estatus = new EstatusDAO();
+		try{
+			estatus.findAll();
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}*/
+
+	/*public static void main(String args[]){
+		EstatusDAO estatus = new EstatusDAO();
+		try{
+			estatus.findByNombreCorto("A");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}*/
+
+}
+
+
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class PerfilDAO extends BaseDAO{
+
+	/**Sentencia para obtener todo el catalogo de perfil	 */
+	private static String GET_PERFIL = "Select * from perfil";
+
+	/**Sentencia para Estado del catalogo de perfil por descripcion */
+	private static String GET_PERFIL_BY_DESCRIPCION = "Select * from perfil where descripcion=?";
+
+
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_PERFIL);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByDesc(String desc)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_PERFIL_BY_DESCRIPCION);
+		pstmt.setString(1,desc);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+			/**
+	 * @param args
+	 */
+
+
+
+	public static void main(String args[]){
+		PerfilDAO perfil = new PerfilDAO();
+		try{
+			perfil.findByDesc("Administrador");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+
+
+	/*public static void main(String args[]){
+		PerfilDAO perfil = new PerfilDAO();
+		try{
+			perfil.findAll();
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+*/
+
+
+	}
+
+}
+package com.mx.aeba.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class PlazoDAO extends BaseDAO{
+	/**Sentencia para obtener todo el catalogo de Estados	 */
+	private static String GET_PLAZO = "Select * from plazo";
+
+	/**Sentencia para Estado del catalogo de Estados por nombre corto */
+	private static String GET_PLAZO_BY_PRODUCTOS = "Select * from plazo where idproductos=?";
+
+	private static String GET_PLAZO_BY_PLAZO = "Select * from plazo where plazo=?";
+	/**
+	 * Crea la conexion a la base de datos
+	 * @return <code>Connection</code> con la conexion a AEBA
+	 * @author Als
+	 */
+
+
+	private void findAll()throws SQLException{
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+		stmt = super.getConnection().createStatement();
+		rs = stmt.executeQuery(GET_PLAZO);
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			closeResultSet(rs);
+			closeStatement(stmt);
+			closeConnection();
+	}
+	}
+
+	private void findByProducto(String product)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_PLAZO_BY_PRODUCTOS);
+		pstmt.setString(1,product);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+			/**
+	 * @param args
+	 */
+	private void findByPlazo(String plazo)throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		pstmt = super.getConnection().prepareStatement(GET_PLAZO_BY_PLAZO);
+		pstmt.setString(1,plazo);
+		rs= pstmt.executeQuery();
+		while(rs.next()){
+			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getString(3));
+		}
+		}
+		catch (SQLException sqle){
+			sqle.printStackTrace();
+		}finally{
+			if(pstmt != null){
+				pstmt.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		}
+	}
+
+
+	/*public static void main(String args[]){
+		PlazoDAO plazo = new PlazoDAO();
+		try{
+			plazo.findAll();
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+	*/
+
+	/*public static void main(String args[]){
+		PlazoDAO plazo = new PlazoDAO();
+		try{
+			plazo.findByPlazo("1 Anio");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}*/
+
+	public static void main(String args[]){
+		PlazoDAO plazo = new PlazoDAO();
+		try{
+			plazo.findByProducto("3");
+		}catch (SQLException sqle){
+			sqle.printStackTrace();
+		}
+	}
+
+}
+
+
+
+
